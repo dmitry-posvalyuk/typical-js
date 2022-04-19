@@ -1,0 +1,40 @@
+{
+  "name": "typical-js",
+  "version": "0.0.0",
+  "description": "Generic NodeJS boilerplate app",
+  "type": "commonjs",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "npx nodemon --inspect=9123 ./src",
+    "env:up": "docker compose up -d",
+    "env:down": "docker compose down",
+    "db:migrate": "npx sequelize-cli db:migrate",
+    "db:seed": "npx sequelize-cli db:seed:all",
+    "db:seed:undo": "npx sequelize-cli db:seed:undo:all",
+    "test": "tap -J -w --no-coverage-report --no-check-coverage test/**/*.test.js",
+    "test:cover": "tap -Rspec --branches=90 --functions=90 --lines=90 --statements=90 test/**/*.test.js",
+    "test:report": "tap -Rspec --coverage-report=html test/**/*.test.js",
+    "docker:build": "DOCKER_BUILDKIT=1 docker build -t $npm_package_config_image:$npm_package_config_tag .",
+    "docker:push": "docker push $npm_package_config_image:$npm_package_config_tag"
+  },
+  "config": {
+    "image": "typical-js",
+    "tag": "dev"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "fastify": "^3.28.0",
+    "fastify-cors": "^6.0.3",
+    "fastify-swagger": "^5.1.1",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.19.0",
+    "sequelize-cli": "^6.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15",
+    "pino-pretty": "^7.6.1",
+    "prettier": "^2.6.2",
+    "tap": "^16.0.1"
+  }
+}
